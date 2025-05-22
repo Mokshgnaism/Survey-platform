@@ -8,15 +8,31 @@ dotenv.config();
 const app = express();
 import dbConnect from "./lib/dbConnect.js";
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // if you ever post form data
+app.use(express.urlencoded({ extended: true })); 
 
 app.use(cookieParser());
+import cors from "cors";
+
+const allowedOrigins = [
+  "http://localhost:5173", 
+  "https://survey-platform-ztwq.vercel.app" 
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173',  // allow your front-end
-  credentials: true,                // enable Set-Cookie and Cookie headers
-  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization','X-Requested-With']
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 }));
+
+
+
 app.use("/api/auth",authRoutes);
 app.use("/api/users",userRoutes);
 dbConnect();
