@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 app.use(cookieParser());
-import cors from "cors";
+
 
 const allowedOrigins = [
   "http://localhost:5173", 
