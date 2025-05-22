@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173", 
-  "https://survey-platform-ztwq.vercel.app" 
+  "https://survey-platform-n3s5-git-main-gorantla-mokshgnas-projects.vercel.app"
 ];
 
 app.use(cors({
